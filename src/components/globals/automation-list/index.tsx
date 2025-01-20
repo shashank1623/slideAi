@@ -11,6 +11,24 @@ import { useMutationDataState } from '@/hooks/use-mutation-data'
 
 type Props = {}
 
+/**
+ * Component that renders a list of automations.
+ * 
+ * @component
+ * @param {Props} props - The properties passed to the component.
+ * 
+ * @returns {JSX.Element} The rendered component.
+ * 
+ * @remarks
+ * This component fetches automation data using `useQueryAutomations` and manages optimistic UI updates with `useMutationDataState`.
+ * If no automations exist, it displays a message and a `CreateAutomation` component.
+ * Each automation is displayed as a link with its name, creation date, and a button indicating its type (Smart AI or Standard).
+ * 
+ * @example
+ * ```tsx
+ * <AutomationList />
+ * ```
+ */
 const AutomationList = (props: Props) => {
     // WIP : Completed 
     // Get the automation list data
