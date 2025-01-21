@@ -1,6 +1,6 @@
 import { PlaneBlue, SmartAi, TinyInstagram } from '@/icons'
 import { v4 } from 'uuid'
-import React, {JSX} from 'react'
+import React, { JSX } from 'react'
 
 
 export type AutomationListenerProps = {
@@ -25,5 +25,31 @@ export const AUTOMATION_LISTENERS: AutomationListenerProps[] = [
         icon: <SmartAi />,
         description: 'Tell AI about your project. (Upgrade to use this feature)',
         type: 'SMARTAI',
+    },
+]
+
+export type AutomationsTriggerProps = {
+    id: string
+    label: string
+    icon: JSX.Element
+    description: string
+    type: 'COMMENT' | 'DM'
+}
+
+
+export const AUTOMATION_TRIGGERS: AutomationsTriggerProps[] = [
+    {
+        id: v4(),
+        label: 'User comments on my post',
+        icon: <TinyInstagram />,
+        description: 'Select if you want to automate comments on your post',
+        type: 'COMMENT',
+    },
+    {
+        id: v4(),
+        label: 'User sends me a dm with a keyword',
+        icon: <TinyInstagram />,
+        description: 'Select if you want to automate DMs on your profile',
+        type: 'DM',
     },
 ]
