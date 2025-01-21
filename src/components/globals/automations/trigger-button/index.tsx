@@ -7,6 +7,15 @@ type Props = {
   label: string
 }
 
+/**
+ * TriggerButton component renders a button that triggers a PopOver component.
+ *
+ * @param {Object} props - The properties object.
+ * @param {React.ReactNode} props.children - The content to be displayed inside the PopOver.
+ * @param {string} props.label - The label text to be displayed on the button.
+ *
+ * @returns {JSX.Element} The rendered TriggerButton component.
+ */
 const TriggerButton = ({ children, label }: Props) => {
   return (
     <PopOver
