@@ -1,5 +1,6 @@
 
 
+import { useQueryUser } from '@/hooks/user-queries'
 import React from 'react'
 
 type Props = {
@@ -18,8 +19,9 @@ type Props = {
  */
 export const SubscriptionPlan = ({type , children}: Props) => {
     // WIP : Return subscription plan based on type
-  return (
-    children
-  )
+    const {
+      data
+    } = useQueryUser()
+  return data?.data?.subscription?.plan === type  && children
 }
 
