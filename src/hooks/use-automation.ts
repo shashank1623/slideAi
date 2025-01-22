@@ -24,6 +24,16 @@ export const useCreateAutomation = (id?: string) => {
   return { isPending, mutate };
 };
 
+/**
+ * Custom hook to handle editing automation names.
+ *
+ * @param {string} automationId - The ID of the automation to be edited.
+ * @returns {object} - An object containing the following properties:
+ *   - `edit` (boolean): A state indicating whether the edit mode is enabled.
+ *   - `inputRef` (React.RefObject<HTMLInputElement | null>): A reference to the input element.
+ *   - `enableEdit` (function): A function to enable the edit mode.
+ *   - `isPending` (boolean): A state indicating whether the mutation is pending.
+ */
 export const useEditAutomation = (automationId: string) => {
   const [edit, setEdit] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
