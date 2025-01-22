@@ -22,6 +22,18 @@ export const PrefetchUserAutomations = async (client : QueryClient) =>{
     return await prefetch(client , getAllAutomation ,'user-automation' )
 }
 
+
+/**
+ * Prefetches user automation information.
+ *
+ * This function uses the provided `QueryClient` to prefetch automation information
+ * based on the given `automationId`. The prefetched data is stored under the key
+ * 'automation-info'.
+ *
+ * @param client - The QueryClient instance used for prefetching.
+ * @param automationId - The ID of the automation to fetch information for.
+ * @returns A promise that resolves when the prefetching is complete.
+ */
 export const PrefetchUserAutomation = async (client : QueryClient , automationId : string) =>{
 
     return await prefetch(
