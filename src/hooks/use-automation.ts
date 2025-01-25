@@ -3,6 +3,7 @@ import {
   deleteKeyword,
   saveKeyword,
   saveListener,
+  savePosts,
   saveTrigger,
   updateAutomationName,
 } from "@/actions/automation";
@@ -129,30 +130,64 @@ export const useTriggers = (id: string) => {
   return { types, onSetTrigger, onSaveTrigger, isPending };
 };
 
-export const useKeywords = (id : string) =>{
-    const [keyword , setKeyword] = useState('')
-    const onValueChange = (e:React.ChangeEvent<HTMLInputElement>) => setKeyword(e.target.value)
+export const useKeywords = (id: string) => {
+  const [keyword, setKeyword] = useState("");
+  const onValueChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setKeyword(e.target.value);
 
-    const {mutate} = useMutationData(
-        ['add-keyword'],
-        (data : {keyword : string}) => saveKeyword(id , data.keyword),
-        'automation-info',
-        () => setKeyword('')
-    )
+  const { mutate } = useMutationData(
+    ["add-keyword"],
+    (data: { keyword: string }) => saveKeyword(id, data.keyword),
+    "automation-info",
+    () => setKeyword("")
+  );
 
-    const onKeyPress = (e:React.KeyboardEvent<HTMLInputElement>) => {
-        if(e.key === 'Enter'){
-            mutate({keyword})
-            setKeyword('')
-        }
+  const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      mutate({ keyword });
+      setKeyword("");
     }
+  };
 
-    const {mutate : deleteMutation} = useMutationData(
-        ['delete-keyword'],
-        (data : {id : string}) => deleteKeyword(data.id),
-        'automation-info',
-    )
+  const { mutate: deleteMutation } = useMutationData(
+    ["delete-keyword"],
+    (data: { id: string }) => deleteKeyword(data.id),
+    "automation-info"
+  );
 
+  return { keyword, onValueChange, onKeyPress, deleteMutation };
+};
 
-    return {keyword , onValueChange , onKeyPress , deleteMutation}
-}
+export const useAutomationPosts = (id: string) => {
+  const [posts, setPosts] = useState<
+    {
+      postid: string;
+      caption?: string;
+      media: string;
+      mediaType: "IMAGE" | "VIDEO" | "CAROSEL_ALBUM";
+    }[]
+  >([]);
+
+  const onSelectPost = (post: {
+    postid: string;
+    caption?: string;
+    media: string;
+    mediaType: "IMAGE" | "VIDEO" | "CAROSEL_ALBUM";
+  }) => {
+    setPosts((prevItems) => {
+      if (prevItems.find((p) => p.postid === post.postid)) {
+        return prevItems.filter((item) => item.postid !== post.postid);
+      } else {
+        return [...prevItems, post];
+      }
+    });
+  };
+
+  const { mutate, isPending } = useMutationData(
+    ["attach-posts"],
+    () => savePosts(id, posts),
+    "automation-info",
+    () => setPosts([])
+  );
+  return { posts, onSelectPost, mutate, isPending };
+};
