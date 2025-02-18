@@ -22,6 +22,8 @@ export const SubscriptionPlan = ({type , children}: Props) => {
     const {
       data
     } = useQueryUser()
+  console.log(data?.data?.subscription?.plan);
+  // Woring not any issue.
   return data?.data?.subscription?.plan === type  && children
 }
 
