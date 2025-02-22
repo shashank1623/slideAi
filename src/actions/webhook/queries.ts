@@ -106,3 +106,27 @@ export const getKeywordPost = async (postId: string, automationId: string) => {
     select: { automationId: true },
   });
 };
+
+export const getChatHistory = async (sender: string, reciever: string) => {
+    const history = await client.dms.findMany({
+      where: {
+        AND: [{ senderId: sender }, { reciever }],
+      },
+      orderBy: { createdAt: 'asc' },
+    })
+    const chatSession: {
+      role: 'assistant' | 'user'
+      content: string
+    }[] = history.map((chat) => {
+      return {
+        role: chat.reciever ? 'assistant' : 'user',
+        content: chat.message!,
+      }
+    })
+  
+    return {
+      history: chatSession,
+      automationId: history[history.length - 1].automationId,
+    }
+}
+  
