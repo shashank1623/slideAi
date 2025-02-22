@@ -46,3 +46,30 @@ export const getKeyWordAutomation = async (automationId : string , dm : boolean)
         },
     })
 }
+
+export const trackResponses = async(
+    automationId : string,
+    type : 'COMMENT' | 'DM'
+) =>{
+    if(type === 'COMMENT'){
+        return await client.listener.update({
+            where : {automationId},
+            data : {
+                commentCount : {
+                    increment : 1,
+                }
+            }
+        })
+    }
+
+    if(type === 'DM'){
+        return await client.listener.update({
+            where : {automationId},
+            data : {
+                dmCount : {
+                    increment : 1,
+                }
+            }
+        })
+    }
+}
